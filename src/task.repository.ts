@@ -17,8 +17,4 @@ export class TaskRepository {
   async addTask(task: Task) {
     this.tasks = [...this.tasks, task];
   }
-
-  async listTasksNested(): Promise<any> {
-    return null; // implement
-  }
 }

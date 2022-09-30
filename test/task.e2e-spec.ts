@@ -20,22 +20,6 @@ describe('TaskController (e2e)', () => {
     return request(app.getHttpServer()).get('/').expect(200).expect([]);
   });
 
-  const tasks: Task[] = [
-    {
-      id: '1',
-      description: 'abc',
-    },
-    {
-      id: '2',
-      description: 'abc',
-    },
-    {
-      id: '3',
-      description: 'abc',
-      parent: '2',
-    },
-  ];
-
   it('nested list', () => {
     return 'todo';
   });

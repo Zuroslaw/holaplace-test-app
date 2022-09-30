@@ -1,24 +1,27 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
-import { TaskService } from './task.service';
-import { Task } from './task.repository';
-import { uuid } from 'uuidv4';
+import { Controller, Get, Query } from '@nestjs/common';
+import { Task, TaskRepository } from './task.repository';
 
 @Controller()
 export class TaskController {
-  constructor(private readonly taskService: TaskService) {}
+  constructor(private readonly taskRepository: TaskRepository) {}
+  private count = 1;
+
+  private nextId(): string {
+    return '' + this.count++;
+  }
 
   @Get()
   async listTasks(): Promise<Task[]> {
-    return this.taskService.listTasks();
+    return this.taskRepository.listTasks();
   }
 
   @Get('/add') // GET for the sake of simplified testing
   async addTask(@Query('description') description): Promise<string> {
     const task: Task = {
-      id: uuid(),
+      id: this.nextId(),
       description,
     };
-    await this.taskService.addTask(task);
+    await this.taskRepository.addTask(task);
     return 'OK';
   }
 }
