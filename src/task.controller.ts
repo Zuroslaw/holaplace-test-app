@@ -1,15 +1,15 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
-import { AppService } from './app.service';
-import { Task } from './app.repository';
+import { TaskService } from './task.service';
+import { Task } from './task.repository';
 import { uuid } from 'uuidv4';
 
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class TaskController {
+  constructor(private readonly taskService: TaskService) {}
 
   @Get()
   async listTasks(): Promise<Task[]> {
-    return this.appService.listTasks();
+    return this.taskService.listTasks();
   }
 
   @Get('/add') // GET for the sake of simplified testing
@@ -18,7 +18,7 @@ export class AppController {
       id: uuid(),
       description,
     };
-    await this.appService.addTask(task);
+    await this.taskService.addTask(task);
     return 'OK';
   }
 }

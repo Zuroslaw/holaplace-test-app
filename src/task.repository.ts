@@ -6,7 +6,7 @@ export interface Task {
 }
 
 @Injectable()
-export class AppRepository {
+export class TaskRepository {
   private tasks: Task[] = [];
 
   async listTasks(): Promise<Task[]> {
