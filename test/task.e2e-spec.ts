@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { TaskModule } from '../src/task.module';
+import { Task } from '../src/task.repository';
 
 describe('TaskController (e2e)', () => {
   let app: INestApplication;
@@ -15,10 +16,27 @@ describe('TaskController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  it('empty list', () => {
+    return request(app.getHttpServer()).get('/').expect(200).expect([]);
+  });
+
+  const tasks: Task[] = [
+    {
+      id: '1',
+      description: 'abc',
+    },
+    {
+      id: '2',
+      description: 'abc',
+    },
+    {
+      id: '3',
+      description: 'abc',
+      parent: '2',
+    },
+  ];
+
+  it('nested list', () => {
+    return 'todo';
   });
 });
